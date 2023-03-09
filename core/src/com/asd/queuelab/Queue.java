@@ -24,9 +24,9 @@ public class Queue<T> {
 
         try {
 
-            queue.remove(0);
+            queue.remove(queue.size() - 1);
 
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
 
             return false;
 
@@ -48,12 +48,12 @@ public class Queue<T> {
 
     }
 
-    // returns head of queue
-    public T peak() {
+    // returns element at index
+    public T get(int index) {
 
         try {
 
-            return queue.get(queue.size() - 1);
+            return queue.get(index);
 
         } catch (ArrayIndexOutOfBoundsException e) {
 

@@ -20,8 +20,9 @@ public class Line {
     // graphics
 
     private Texture barrierTexture;
+    private Texture personTexture;
 
-    public Line(float width, float height, float xCenter, float yBottom, int maxSize, Texture barrierTexture) {
+    public Line(float width, float height, float xCenter, float yBottom, int maxSize, Texture barrierTexture, Texture personTexture) {
 
         this.maxSize = maxSize;
 
@@ -29,41 +30,61 @@ public class Line {
 
         this.barrierTexture = barrierTexture;
 
+        this.personTexture = personTexture;
+
     }
 
     public void draw(Batch batch) {
 
         // WIP
 
-        for (int i = 1; i <= maxSize; i++) {
-
-            batch.draw(barrierTexture, (boundingBox.getWidth() / maxSize) * i - boundingBox.getWidth() / maxSize, boundingBox.getY(), boundingBox.getWidth() / maxSize, boundingBox.getHeight() - 100);
-
-        }
-
         if (queue.size() > -1) {
 
-            for (int i = 1; i <= queue.size(); i++) {
+            for (int i = 0; i < queue.size(); i++) {
 
-                // WIP
+                queue.get(i).draw(batch);
 
             }
 
         }
 
+        for (int i = 1; i <= maxSize; i++) {
+
+            batch.draw(barrierTexture, (boundingBox.getWidth() / maxSize) * i - boundingBox.getWidth() / maxSize, boundingBox.getY(), boundingBox.getWidth() / maxSize, boundingBox.getHeight() / (31/11));
+
+        }
+
+
+
 
 
     }
 
-    public void addPerson(Person person) {
+    public void addPerson() {
 
-        queue.enqueue(person);
+        if (queue.size() + 1 < maxSize) {
+
+            queue.enqueue(new Person(boundingBox.getWidth() / (maxSize * (5/2)), boundingBox.getHeight() - 30, boundingBox.getWidth() - (boundingBox.getWidth() / maxSize) * (queue.size() + 1) + 125, boundingBox.getY() + boundingBox.getHeight() - 100, personTexture));
+
+        }
 
     }
 
     public void removePerson() {
 
         queue.dequeue();
+
+    }
+
+    public void update(float deltaTime) {
+
+        int random = (int)((Math.random() * 500));
+
+        if (random == 250) {
+
+            removePerson();
+
+        }
 
     }
 

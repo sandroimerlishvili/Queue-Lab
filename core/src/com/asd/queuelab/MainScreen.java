@@ -34,6 +34,9 @@ public class MainScreen extends ScreenAdapter {
 
     private Texture background;
 
+    private Texture lineTexture;
+    private Texture personTexture;
+
     // world parameters
 
     private final int WORLD_WIDTH = 1280;
@@ -67,12 +70,17 @@ public class MainScreen extends ScreenAdapter {
         parent.peopleTalking.setLooping(true);
         parent.peopleTalking.play();
 
+        // textures
+
+        lineTexture = Assets.manager.get(Assets.barrier, Texture.class);
+        personTexture = Assets.manager.get(Assets.person, Texture.class);
+
         // lines
 
-        l1 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 1, 5, Assets.manager.get(Assets.barrier, Texture.class));
-        l2 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 2, 5, Assets.manager.get(Assets.barrier, Texture.class));
-        l3 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 3, 5, Assets.manager.get(Assets.barrier, Texture.class));
-        l4 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 4, 5, Assets.manager.get(Assets.barrier, Texture.class));
+        l1 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 1, 5, lineTexture, personTexture);
+        l2 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 2, 5, lineTexture, personTexture);
+        l3 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 3, 5, lineTexture, personTexture);
+        l4 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 4, 5, lineTexture, personTexture);
 
         batch = new SpriteBatch();
 
@@ -91,6 +99,15 @@ public class MainScreen extends ScreenAdapter {
         l2.draw(batch);
         l3.draw(batch);
         l4.draw(batch);
+
+        // update
+
+        l1.update(deltaTime);
+        l2.update(deltaTime);
+        l3.update(deltaTime);
+        l4.update(deltaTime);
+
+        updateLines(deltaTime);
 
         detectInput(deltaTime);
 
@@ -111,6 +128,40 @@ public class MainScreen extends ScreenAdapter {
             System.exit(0);
 
         }
+
+    }
+
+    public void updateLines(float deltaTime) {
+
+        int random1 = (int)((Math.random() * 200));
+
+        if (random1 == 100) {
+
+            l1.addPerson();
+
+        }
+        int random2 = (int)((Math.random() * 200));
+
+        if (random2 == 100) {
+
+            l2.addPerson();
+
+        }
+        int random3 = (int)((Math.random() * 200));
+
+        if (random3 == 100) {
+
+            l3.addPerson();
+
+        }
+        int random4 = (int)((Math.random() * 200));
+
+        if (random4 == 100) {
+
+            l4.addPerson();
+
+        }
+
 
     }
 
