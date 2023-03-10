@@ -20,17 +20,14 @@ public class Line {
     // graphics
 
     private Texture barrierTexture;
-    private Texture personTexture;
 
-    public Line(float width, float height, float xCenter, float yBottom, int maxSize, Texture barrierTexture, Texture personTexture) {
+    public Line(float width, float height, float xCenter, float yBottom, int maxSize, Texture barrierTexture) {
 
         this.maxSize = maxSize;
 
         this.boundingBox = new Rectangle(xCenter - width / 2, yBottom, width, height);
 
         this.barrierTexture = barrierTexture;
-
-        this.personTexture = personTexture;
 
     }
 
@@ -60,11 +57,13 @@ public class Line {
 
     }
 
-    public void addPerson() {
+    public void addPerson(Texture personTexture) {
 
-        if (queue.size() + 1 < maxSize) {
+        if (queue.size() < maxSize) {
 
-            queue.enqueue(new Person(boundingBox.getWidth() / (maxSize * (5/2)), boundingBox.getHeight() - 30, boundingBox.getWidth() - (boundingBox.getWidth() / maxSize) * (queue.size() + 1) + 125, boundingBox.getY() + boundingBox.getHeight() - 100, personTexture));
+            queue.enqueue(new Person(boundingBox.getWidth() / (maxSize * (5/2)), boundingBox.getHeight() - (boundingBox.getHeight() / 7),
+                    boundingBox.getWidth() - (boundingBox.getWidth() / maxSize) * (queue.size() + 1) + ((boundingBox.getWidth() / maxSize) / 2.1f),
+                    boundingBox.getY() + boundingBox.getHeight() - (boundingBox.getHeight() / 1.9f), personTexture));
 
         }
 
@@ -76,6 +75,8 @@ public class Line {
 
     }
 
+    // removes a person from the queue at random (1 in 500 chance every millisecond)
+
     public void update(float deltaTime) {
 
         int random = (int)((Math.random() * 500));
@@ -85,6 +86,12 @@ public class Line {
             removePerson();
 
         }
+
+    }
+
+    public int size() {
+
+        return queue.size();
 
     }
 

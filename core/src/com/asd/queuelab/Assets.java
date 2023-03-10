@@ -28,7 +28,14 @@ public class Assets {
 
     public static final String background = "textures/floor.jpg";
     public static final String barrier = "textures/barrier.png";
-    public static final String person = "textures/person.png";
+
+    public static final String person0 = "textures/person0.png";
+    public static final String person1 = "textures/person1.png";
+    public static final String person2 = "textures/person2.png";
+    public static final String person3 = "textures/person3.png";
+    public static final String person4 = "textures/person4.png";
+
+    public static final String ticketBooth = "textures/ticketBooth.png";
 
     // music
 
@@ -46,7 +53,14 @@ public class Assets {
 
         manager.load(background, Texture.class);
         manager.load(barrier, Texture.class);
-        manager.load(person, Texture.class);
+
+        manager.load(person0, Texture.class);
+        manager.load(person1, Texture.class);
+        manager.load(person2, Texture.class);
+        manager.load(person3, Texture.class);
+        manager.load(person4, Texture.class);
+
+        manager.load(ticketBooth, Texture.class);
 
     }
 

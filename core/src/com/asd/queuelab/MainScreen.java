@@ -35,7 +35,10 @@ public class MainScreen extends ScreenAdapter {
     private Texture background;
 
     private Texture lineTexture;
-    private Texture personTexture;
+
+    private Texture[] personTextures;
+
+    private Texture ticketBoothTexture;
 
     // world parameters
 
@@ -45,6 +48,7 @@ public class MainScreen extends ScreenAdapter {
     // lines
 
     Line l1, l2, l3, l4;
+    Line[] lines;
 
     public MainScreen(QueueLab parentClass) {
 
@@ -66,21 +70,37 @@ public class MainScreen extends ScreenAdapter {
 
         parent.peopleTalking = Assets.manager.get(Assets.peopleTalking, Music.class);
 
-        parent.peopleTalking.setVolume(0.7f);
+        parent.peopleTalking.setVolume(0.8f);
         parent.peopleTalking.setLooping(true);
         parent.peopleTalking.play();
 
         // textures
 
         lineTexture = Assets.manager.get(Assets.barrier, Texture.class);
-        personTexture = Assets.manager.get(Assets.person, Texture.class);
+
+        personTextures = new Texture[5];
+
+        personTextures[0] = Assets.manager.get(Assets.person0, Texture.class);
+        personTextures[1] = Assets.manager.get(Assets.person1, Texture.class);
+        personTextures[2] = Assets.manager.get(Assets.person2, Texture.class);
+        personTextures[3] = Assets.manager.get(Assets.person3, Texture.class);
+        personTextures[4] = Assets.manager.get(Assets.person4, Texture.class);
+
+        ticketBoothTexture = Assets.manager.get(Assets.ticketBooth, Texture.class);
 
         // lines
 
-        l1 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 1, 5, lineTexture, personTexture);
-        l2 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 2, 5, lineTexture, personTexture);
-        l3 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 3, 5, lineTexture, personTexture);
-        l4 = new Line(WORLD_WIDTH, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 4, 5, lineTexture, personTexture);
+        l1 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 1, 5, lineTexture);
+        l2 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 2, 5, lineTexture);
+        l3 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 3, 5, lineTexture);
+        l4 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 4, 5, lineTexture);
+
+        lines = new Line[4];
+
+        lines[0] = l1;
+        lines[1] = l2;
+        lines[2] = l3;
+        lines[3] = l4;
 
         batch = new SpriteBatch();
 
@@ -100,14 +120,21 @@ public class MainScreen extends ScreenAdapter {
         l3.draw(batch);
         l4.draw(batch);
 
-        // update
+        for (int i = 0; i < lines.length; i++) {
 
-        l1.update(deltaTime);
-        l2.update(deltaTime);
-        l3.update(deltaTime);
-        l4.update(deltaTime);
+            batch.draw(ticketBoothTexture, lines[i].boundingBox.getWidth(), lines[i].boundingBox.getY(), lines[i].boundingBox.getWidth() / (lines[i].boundingBox.getWidth() / 150), lines[i].boundingBox.getHeight());
 
-        updateLines(deltaTime);
+        }
+
+        // update lines
+
+        for (Line l : lines) {
+
+            l.update(deltaTime);
+
+        }
+
+        addPeople(deltaTime);
 
         detectInput(deltaTime);
 
@@ -131,37 +158,32 @@ public class MainScreen extends ScreenAdapter {
 
     }
 
-    public void updateLines(float deltaTime) {
+    // this method finds the shortest line and randomly adding a person (1 in 120 chance every millisecond)
 
-        int random1 = (int)((Math.random() * 200));
+    public void addPeople(float deltaTime) {
 
-        if (random1 == 100) {
+        int random = (int)((Math.random() * 120));
 
-            l1.addPerson();
+        if (random == 60) {
 
-        }
-        int random2 = (int)((Math.random() * 200));
+            Line shortestLine = lines[0];
+            int minLength = 0;
 
-        if (random2 == 100) {
+            for (int i = 0; i < lines.length; i++) {
 
-            l2.addPerson();
+                if (shortestLine.size() > lines[i].size()) {
 
-        }
-        int random3 = (int)((Math.random() * 200));
+                    shortestLine = lines[i];
 
-        if (random3 == 100) {
+                }
 
-            l3.addPerson();
+            }
 
-        }
-        int random4 = (int)((Math.random() * 200));
+            random = (int)((Math.random()) * personTextures.length);
 
-        if (random4 == 100) {
-
-            l4.addPerson();
+            shortestLine.addPerson(personTextures[random]);
 
         }
-
 
     }
 
