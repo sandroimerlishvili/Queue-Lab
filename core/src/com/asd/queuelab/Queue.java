@@ -15,7 +15,7 @@ public class Queue<T> {
     // adds element to tail of queue
     public void enqueue(T data) {
 
-        queue.add(data);
+        queue.add(0, data);
 
     }
 

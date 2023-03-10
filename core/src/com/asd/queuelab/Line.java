@@ -33,8 +33,6 @@ public class Line {
 
     public void draw(Batch batch) {
 
-        // WIP
-
         if (queue.size() > -1) {
 
             for (int i = 0; i < queue.size(); i++) {
