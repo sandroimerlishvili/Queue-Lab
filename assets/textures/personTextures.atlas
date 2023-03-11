@@ -1,0 +1,76 @@
+
+personTextures.png
+size: 4096, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+person0
+  rotate: false
+  xy: 1247, 521
+  size: 430, 1500
+  orig: 430, 1500
+  offset: 0, 0
+  index: -1
+person1
+  rotate: false
+  xy: 2742, 1030
+  size: 263, 991
+  orig: 263, 991
+  offset: 0, 0
+  index: -1
+person2
+  rotate: false
+  xy: 3503, 1526
+  size: 210, 495
+  orig: 210, 495
+  offset: 0, 0
+  index: -1
+person3
+  rotate: false
+  xy: 2, 224
+  size: 513, 1797
+  orig: 513, 1797
+  offset: 0, 0
+  index: -1
+person4
+  rotate: false
+  xy: 517, 209
+  size: 331, 1812
+  orig: 331, 1812
+  offset: 0, 0
+  index: -1
+person5
+  rotate: false
+  xy: 850, 467
+  size: 395, 1554
+  orig: 395, 1554
+  offset: 0, 0
+  index: -1
+person6
+  rotate: false
+  xy: 2, 2
+  size: 120, 220
+  orig: 120, 220
+  offset: 0, 0
+  index: -1
+person7
+  rotate: false
+  xy: 3007, 1457
+  size: 494, 564
+  orig: 494, 564
+  offset: 0, 0
+  index: -1
+person8
+  rotate: false
+  xy: 2288, 997
+  size: 452, 1024
+  orig: 452, 1024
+  offset: 0, 0
+  index: -1
+person9
+  rotate: false
+  xy: 1679, 706
+  size: 607, 1315
+  orig: 607, 1315
+  offset: 0, 0
+  index: -1

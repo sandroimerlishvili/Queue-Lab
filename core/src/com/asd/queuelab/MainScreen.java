@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.asd.queuelab.Queue;
 
 /*
 
@@ -34,9 +34,10 @@ public class MainScreen extends ScreenAdapter {
 
     private Texture background;
 
-    private Texture lineTexture;
+    private Texture barrierTexture;
 
-    private Texture[] personTextures;
+    private String[] personTextureNames = {"person0", "person1", "person2", "person3", "person4",
+                                            "person5", "person6", "person7", "person8", "person9"};
 
     private Texture ticketBoothTexture;
 
@@ -76,24 +77,16 @@ public class MainScreen extends ScreenAdapter {
 
         // textures
 
-        lineTexture = Assets.manager.get(Assets.barrier, Texture.class);
-
-        personTextures = new Texture[5];
-
-        personTextures[0] = Assets.manager.get(Assets.person0, Texture.class);
-        personTextures[1] = Assets.manager.get(Assets.person1, Texture.class);
-        personTextures[2] = Assets.manager.get(Assets.person2, Texture.class);
-        personTextures[3] = Assets.manager.get(Assets.person3, Texture.class);
-        personTextures[4] = Assets.manager.get(Assets.person4, Texture.class);
+        barrierTexture = Assets.manager.get(Assets.barrier, Texture.class);
 
         ticketBoothTexture = Assets.manager.get(Assets.ticketBooth, Texture.class);
 
         // lines
 
-        l1 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 1, 5, lineTexture);
-        l2 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 2, 5, lineTexture);
-        l3 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 3, 5, lineTexture);
-        l4 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 4, 5, lineTexture);
+        l1 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4f, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 1, 5, barrierTexture);
+        l2 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4f, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 2, 5, barrierTexture);
+        l3 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4f, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 3, 5, barrierTexture);
+        l4 = new Line(WORLD_WIDTH - 150, WORLD_HEIGHT / 4f, 0, WORLD_HEIGHT - (WORLD_HEIGHT / 4) * 4, 5, barrierTexture);
 
         lines = new Line[4];
 
@@ -158,7 +151,7 @@ public class MainScreen extends ScreenAdapter {
 
     }
 
-    // this method finds the shortest line and randomly adding a person (1 in 120 chance every millisecond)
+    // this method finds the shortest line and randomly adds a person (1 in 120 chance every millisecond)
 
     public void addPeople(float deltaTime) {
 
@@ -167,7 +160,6 @@ public class MainScreen extends ScreenAdapter {
         if (random == 60) {
 
             Line shortestLine = lines[0];
-            int minLength = 0;
 
             for (int i = 0; i < lines.length; i++) {
 
@@ -179,9 +171,9 @@ public class MainScreen extends ScreenAdapter {
 
             }
 
-            random = (int)((Math.random()) * personTextures.length);
+            random = (int)((Math.random()) * personTextureNames.length);
 
-            shortestLine.addPerson(personTextures[random]);
+            shortestLine.addPerson(Assets.manager.get(Assets.personTextures, TextureAtlas.class).findRegion(personTextureNames[random]));
 
         }
 

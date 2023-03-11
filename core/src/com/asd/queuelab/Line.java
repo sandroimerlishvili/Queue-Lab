@@ -37,7 +37,9 @@ public class Line {
 
             for (int i = 0; i < queue.size(); i++) {
 
-                queue.get(i).draw(batch);
+                queue.get(i).draw(batch, boundingBox.getWidth() / (maxSize * (5/2)), boundingBox.getHeight() - (boundingBox.getHeight() / 7),
+                        boundingBox.getWidth() - (boundingBox.getWidth() / maxSize) * (i + 1) + ((boundingBox.getWidth() / maxSize) / 2.1f),
+                        boundingBox.getY() + boundingBox.getHeight() - (boundingBox.getHeight() / 1.9f));
 
             }
 
@@ -49,19 +51,13 @@ public class Line {
 
         }
 
-
-
-
-
     }
 
-    public void addPerson(Texture personTexture) {
+    public void addPerson(TextureRegion personTextureRegion) {
 
         if (queue.size() < maxSize) {
 
-            queue.enqueue(new Person(boundingBox.getWidth() / (maxSize * (5/2)), boundingBox.getHeight() - (boundingBox.getHeight() / 7),
-                    boundingBox.getWidth() - (boundingBox.getWidth() / maxSize) * (queue.size() + 1) + ((boundingBox.getWidth() / maxSize) / 2.1f),
-                    boundingBox.getY() + boundingBox.getHeight() - (boundingBox.getHeight() / 1.9f), personTexture));
+            queue.enqueue(new Person(personTextureRegion));
 
         }
 

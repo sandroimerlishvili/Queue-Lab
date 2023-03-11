@@ -15,7 +15,7 @@ public class Queue<T> {
     // adds element to tail of queue
     public void enqueue(T data) {
 
-        queue.add(0, data);
+        queue.add(data);
 
     }
 
@@ -24,7 +24,7 @@ public class Queue<T> {
 
         try {
 
-            queue.remove(queue.size() - 1);
+            queue.remove(0);
 
         } catch (IndexOutOfBoundsException e) {
 

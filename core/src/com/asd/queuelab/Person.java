@@ -1,29 +1,23 @@
 package com.asd.queuelab;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Person {
 
-    // position & dimensions
-
-    private Rectangle boundingBox;
-
     // graphics
 
-    private Texture personTexture;
+    private TextureRegion personTextureRegion;
 
-    public Person(float width, float height, float xCenter, float yCenter, Texture personTexture) {
+    public Person(TextureRegion personTextureRegion) {
 
-        this.boundingBox = new Rectangle(xCenter - width / 2, yCenter - height / 2, width, height);
-        this.personTexture = personTexture;
+        this.personTextureRegion = personTextureRegion;
 
     }
 
-    public void draw(Batch batch) {
+    public void draw(Batch batch, float width, float height, float xCenter, float yCenter) {
 
-        batch.draw(personTexture, boundingBox.getX(), boundingBox.getY(), boundingBox.getWidth(), boundingBox.getHeight());
+        batch.draw(personTextureRegion, xCenter - width / 2, yCenter - height / 2, width, height);
 
     }
 
